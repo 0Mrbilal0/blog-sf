@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PageController!{% endblock %}
+
+{% block body %}
+
+        {% for item in categories %}
+                <a href={{ path('category', {category: item.name}) }}>{{ item.name }}</a>
+        {% endfor %}
+        <hr>
+        {% for item in posts %}
+                <br><a href={{ path('post', {slug: item.slug}) }}>{{ item.title }}</a>
+        {% endfor %}
+
+        {{ dump(posts) }}
+
+        {{ knp_pagination_render(posts) }}
+
+{% endblock %}
