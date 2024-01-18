@@ -24,7 +24,7 @@ class PageController extends AbstractController
         $posts = $paginator->paginate(
             $postRepository->findAll(), // Request
             $request->query->getInt('page', 1), // Page number
-            10 // Limit per page
+            9 // Limit per page
         );
         return $this->render('page/home.html.twig', [
             'posts' => $posts,
@@ -32,8 +32,7 @@ class PageController extends AbstractController
         ]);
     }
 
-    //
-    #[Route('/{slug}', name: 'post', methods: ['GET'])]
+    #[Route('/post/{slug}', name: 'post', methods: ['GET'])]
     public function post(
         // Inject the request object to get the category name (NE PAS REECRIRE TOUS LES COMMENTAIRES)
         Request $request,
@@ -56,28 +55,17 @@ class PageController extends AbstractController
     // Route for displaying a single category (NE PAS REECRIRE TOUS LES COMMENTAIRES)
     #[Route('/{category}', name: 'category', methods: ['GET'])]
     public function category(
-        // Inject the request object to get the category name (NE PAS REECRIRE TOUS LES COMMENTAIRES)
         Request $request,
-        // Inject the category repository to find the category
         CategoryRepository $categoryRepository,
-        // Inject the post repository to find all posts in the category
         PostRepository $postRepository,
     ): Response {
-        // Find the category by its name
         $category = $categoryRepository->findOneBy([
             'name' => $request->get('category')
         ]);
-        // Return the view
         return $this->render('page/category.html.twig', [
-            // Pass the category object to the view
             'category' => $category,
-            // Pass all posts in the category to the view
-            'posts' => $postRepository->findBy(
-                [
-                    'category' => $category
-                ]
+            'posts' => $postRepository->findBy(['category' => $category]
             )
         ]);
     }
-
 }
