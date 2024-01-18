@@ -7,6 +7,8 @@ use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,14 +18,16 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('extract')
             ->add('content')
-            ->add('image')
+            ->add('image', FileType::class, ['label' => 'Image',
+                'mapped' => false,
+                'required' => false])
             ->add('ispublished')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-'choice_label' => 'id',
+'choice_label' => 'name',
             ])
+            ->add('submit', SubmitType::class, ['label' => 'Modifier'])
         ;
     }
 
