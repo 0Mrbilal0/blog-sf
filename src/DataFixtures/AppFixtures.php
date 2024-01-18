@@ -26,25 +26,25 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         $users = [];
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 5; $i++) { 
             $user = new User();
             $user->setEmail('user'. $i .'@blog.fr')
-                ->setPassword('$2y$13$sje5xwqUEuPg0IoYPI00MeI4ojRR.gobtIPYw/bHjUc7g9a3afM7G')
-                ->setNickname($faker->userName)
-                ->setRoles(['ROLE_USER'])
-                ->setCreatedAt($faker->dateTimeBetween('-10months'));
+            ->setPassword('$2y$13$sje5xwqUEuPg0IoYPI00MeI4ojRR.gobtIPYw/bHjUc7g9a3afM7G')
+            ->setNickname($faker->userName)
+            ->setRoles(['ROLE_USER'])
+            ->setCreatedAt($faker->dateTimeBetween('-10months'));
             $manager->persist($user);
             array_push($users, $user);
         }
 
         $authors = [];
-        for ($i=0; $i < 3; $i++) {
+        for ($i=0; $i < 3; $i++) { 
             $author = new User();
             $author->setEmail('author'. $i .'@blog.fr')
-                ->setPassword('$2y$13$sje5xwqUEuPg0IoYPI00MeI4ojRR.gobtIPYw/bHjUc7g9a3afM7G')
-                ->setNickname($faker->userName)
-                ->setRoles(['ROLE_AUTHOR'])
-                ->setCreatedAt($faker->dateTimeBetween('-11 months'));
+            ->setPassword('$2y$13$sje5xwqUEuPg0IoYPI00MeI4ojRR.gobtIPYw/bHjUc7g9a3afM7G')
+            ->setNickname($faker->userName)
+            ->setRoles(['ROLE_AUTHOR'])
+            ->setCreatedAt($faker->dateTimeBetween('-11 months'));
             $manager->persist($author);
             array_push($authors, $author);
         }
@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
             array_push($catArray, $cat);
         }
 
-        for ($i=0; $i <= 100; $i++) {
+        for ($i=0; $i <= 100; $i++) { 
             $post = new Post();
             $post->setTitle($faker->text(50))
                 ->setSlug($faker->slug)
@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
             $manager->persist($post);
 
             // 3 to 5 comments for each post
-            for ($j=0; $j < mt_rand(3, 5); $j++) {
+            for ($j=0; $j < mt_rand(3, 5); $j++) { 
                 $comment = new Comment();
                 $comment->setAuthor($faker->randomElement($users))
                     ->setTitle($faker->text(50))
