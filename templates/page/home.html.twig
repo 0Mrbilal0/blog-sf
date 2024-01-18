@@ -1,19 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PageController!{% endblock %}
+{% block title %}Hello PageController!
+{% endblock %}
 
 {% block body %}
 
-        {% for item in categories %}
-                <a href={{ path('category', {category: item.name}) }}>{{ item.name }}</a>
-        {% endfor %}
-        <hr>
-        {% for item in posts %}
-                <br><a href={{ path('post', {slug: item.slug}) }}>{{ item.title }}</a>
-        {% endfor %}
+	<div class="d-flex gap-2 justify-content-center py-3">
+		{% for item in categories %}
+			<a href={{ path('category', {category: item.name} ) }} class="btn btn-sm btn-dark">
+                {{ item.name }}
+            </a>
+		{% endfor %}
+	</div>
 
-        {{ dump(posts) }}
+	<hr>
 
-        {{ knp_pagination_render(posts) }}
+	<div class="row gap-3 justify-content-center">
+		{% for item in posts %}
+			<div class="col-sm-3 bg-light rounded-4 p-3 shadow-sm">
+				<img src={{ item.image }} class="img-fluid rounded-3">
+				<h5 class="border-bottom p-3">{{ item.title }}</h5>
+				<p>Publié le
+					{{ item.createdAt|date("j F Y", "Europe/Paris") }}</p>
+				{# Cette route est un exemple "home" n'est pas censer rediriger vers post #}
+				<a href={{ path('post', {'slug': item.slug} )}} class="btn btn-dark">
+					Voir <i class="bi bi-arrow-right-circle"></i>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="d-flex justify-content-center py-5">
+		{{ knp_pagination_render(posts) }}
+	</div>
 
 {% endblock %}
